@@ -95,44 +95,44 @@ def check_user_exists(email):
     return user
 
 
-"""
 # sales_per_product
 def sales_per_product():
-    cur.execute(
+    cur.execute("""
         select products.name as p_name, sum(sales.quantity * products.selling_price) as total_sales
         from products inner join sales on products.id = sales.pid group by(p_name);
-    )
+    """)
 
     product_sales = cur.fetchall()
     return product_sales
 
 # sales_per_day
 def sales_per_day():
-    cur.execute(
+    cur.execute("""
     select date(sales.created_at) as date, sum(products.selling_price * sales.quantity) as
     total_sales from products inner join sales on sales.pid = products.id group by(date);
-    )
+    """)
 
     daily_sales = cur.fetchall()
     return daily_sales
         
 # profit_per_product
 def profit_per_product():
-    cur.execute(
+    cur.execute("""
     select products.name as p_name ,sum((products.selling_price - products.buying_price) * sales.quantity) as profit from
     sales inner join products on sales.pid = products.id group by(p_name);
-    )
+    """)
 
     product_profit = cur.fetchall()
     return product_profit
     
 # profit_per_day
 def profit_per_day():
-    cur.execute(
+    cur.execute("""
         select date(sales.created_at) as date, sum((products.selling_price - products.buying_price)* sales.quantity) as 
         profit from sales join products on products.id = sales.pid group by(date);
-    )
+    """)
+    
     daily_profit = cur.fetchall()
     return daily_profit
 
- """
+ 
